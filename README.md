@@ -2,7 +2,6 @@
 ### Boosted Hybrid: Ridge Regression + LightGBM
 
 A modular, production-ready forecasting pipeline for half-hourly electricity demand in New South Wales (2018–2023).  
-Built as part of B.Tech (CSE) coursework at Thapar Institute of Engineering and Technology.
 
 ---
 
@@ -57,8 +56,8 @@ nsw-electricity-forecast/
 
 ```bash
 # 1. Clone
-git clone https://github.com/<your-username>/nsw-electricity-forecast.git
-cd nsw-electricity-forecast
+git clone https://github.com/Simarbir2112006/electricity-demand-forecasting-nsw.git
+cd electricity-demand-forecasting-nsw
 
 # 2. Install dependencies
 pip install -r requirements.txt
@@ -104,15 +103,6 @@ print(evaluate_all_splits(model, splits))
 
 # Interpret
 shap_summary(model, test[FEATURE_TREE])
-```
-
----
-
-## Running Tests
-
-```bash
-pip install pytest
-pytest tests/ -v
 ```
 
 ---
