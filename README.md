@@ -115,7 +115,7 @@ https://www.kaggle.com/datasets/joebeachcapital/nsw-australia-electricity-demand
 
 ## Paper
 
-A one-page methodology overview is available in [`docs/abstract.pdf`](docs/abstract.pdf).
+A one-page methodology overview is available in [`docs/abstract_nsw_electricity_demand.pdf`](docs/abstract_nsw_electricity_demand.pdf).
 
 ---
 
