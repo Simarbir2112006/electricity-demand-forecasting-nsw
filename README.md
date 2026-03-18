@@ -41,9 +41,7 @@ nsw-electricity-forecast/
 │   ├── interpret.py     # SHAP plots & forecast visualisation
 │   └── train.py         # End-to-end CLI training script
 ├── notebooks/
-│   └── exploration.ipynb  # (original Kaggle notebook)
-├── tests/
-│   └── test_features.py   # pytest unit tests
+│   └── nsw-electricity-demand-featue-enng-models-shap.ipynb  # (original Kaggle notebook)
 ├── data/                  # Place raw CSVs here (gitignored)
 ├── outputs/               # Saved predictions (gitignored)
 ├── requirements.txt
@@ -64,7 +62,7 @@ pip install -r requirements.txt
 
 # 3. Download dataset
 #    https://www.kaggle.com/datasets/joebeachcapital/nsw-australia-electricity-demand-2018-2023
-#    Place CSV files in data/
+#    Place all CSV files in the data/ folder before running.
 
 # 4. Train
 cd src
