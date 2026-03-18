@@ -1,7 +1,7 @@
 # NSW Electricity Demand Forecasting
 ### Boosted Hybrid: Ridge Regression + LightGBM
 
-A modular, production-ready forecasting pipeline for half-hourly electricity demand in New South Wales (2018–2023).  
+A modular, production-ready forecasting pipeline for half-hourly electricity demand in New South Wales (2018–2023).
 
 ---
 
@@ -18,7 +18,6 @@ SHAP analysis confirms `lag_1` (immediate past demand) and `rolling_336` (7-day 
 ---
 
 ## Architecture
-
 ```
 ŷ  =  M1(X_trend)  +  M2(X_interaction)
        │                   │
@@ -31,19 +30,23 @@ SHAP analysis confirms `lag_1` (immediate past demand) and `rolling_336` (7-day 
 ---
 
 ## Project Structure
-
 ```
-nsw-electricity-forecast/
+electricity-demand-forecasting-nsw/
 ├── src/
 │   ├── data_loader.py   # CSV ingestion & validation
 │   ├── features.py      # All feature engineering (lags, Fourier, cyclical)
 │   ├── model.py         # BoostedHybrid class + evaluation helpers
 │   ├── interpret.py     # SHAP plots & forecast visualisation
-│   └── train.py         # End-to-end CLI training script
+│   └── train.py         # End-to-end training script
+├── tutorials/
+│   ├── tutorial.py      # Script walkthrough
+│   └── tutorial.ipynb   # Interactive notebook walkthrough
 ├── notebooks/
-│   └── nsw-electricity-demand-featue-enng-models-shap.ipynb  # (original Kaggle notebook)
+│   └── exploration.ipynb  # Original Kaggle notebook
+├── docs/
+│   └── abstract.pdf
 ├── data/                  # Place raw CSVs here (gitignored)
-├── outputs/               # Saved predictions (gitignored)
+├── outputs/               # Generated predictions & plots (gitignored)
 ├── requirements.txt
 └── README.md
 ```
@@ -51,7 +54,6 @@ nsw-electricity-forecast/
 ---
 
 ## Quick Start
-
 ```bash
 # 1. Clone
 git clone https://github.com/Simarbir2112006/electricity-demand-forecasting-nsw.git
@@ -66,42 +68,26 @@ pip install -r requirements.txt
 
 # 4. Train
 cd src
-python train.py --data_dir ../data --output_dir ../outputs
+python train.py
 ```
 
 ---
 
-## Usage as a Library
+## Tutorials
 
-```python
-from src.data_loader import load_raw_data
-from src.features    import build_features, get_lr_features, FEATURE_TREE, TARGET
-from src.model       import build_default_model, evaluate_all_splits
-from src.interpret   import shap_summary, plot_forecast
+Two formats available:
 
-# Load & engineer
-df_raw      = load_raw_data("data/")
-df, dp      = build_features(df_raw)
-
-# Split
-n  = len(df)
-i1, i2 = int(n*0.7), int(n*0.9)
-train, valid, test = df.iloc[:i1], df.iloc[i1:i2], df.iloc[i2:]
-
-LR_FEATS = get_lr_features(df)
-
-# Train
-model = build_default_model()
-model.fit(train[LR_FEATS], train[FEATURE_TREE], train[TARGET],
-          valid[LR_FEATS], valid[FEATURE_TREE], valid[TARGET])
-
-# Evaluate
-splits = {"test": (test[LR_FEATS], test[FEATURE_TREE], test[TARGET])}
-print(evaluate_all_splits(model, splits))
-
-# Interpret
-shap_summary(model, test[FEATURE_TREE])
+**Notebook (recommended):**
+```bash
+jupyter notebook tutorials/tutorial.ipynb
 ```
+
+**Script:**
+```bash
+python tutorials/tutorial.py
+```
+
+Both save predictions and plots to `outputs/` and print the path when done.
 
 ---
 
@@ -120,7 +106,9 @@ shap_summary(model, test[FEATURE_TREE])
 
 ## Dataset
 
-[NSW Australia Electricity Demand 2018–2023](https://www.kaggle.com/datasets/joebeachcapital/nsw-australia-electricity-demand-2018-2023) — Kaggle  
+Download all CSV files from Kaggle and place them in the `data/` folder:
+https://www.kaggle.com/datasets/joebeachcapital/nsw-australia-electricity-demand-2018-2023
+
 248,592 raw rows · 30-minute settlement intervals · columns: REGION, SETTLEMENTDATE, TOTALDEMAND, RRP, PERIODTYPE
 
 ---
@@ -133,7 +121,7 @@ A one-page methodology overview is available in [`docs/abstract.pdf`](docs/abstr
 
 ## Tech Stack
 
-`Python` · `pandas` · `scikit-learn` · `LightGBM` · `statsmodels` · `SHAP` · `matplotlib` · `Streamlit`
+`Python` · `pandas` · `scikit-learn` · `LightGBM` · `statsmodels` · `SHAP` · `matplotlib`
 
 ---
 
